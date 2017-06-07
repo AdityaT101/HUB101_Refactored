@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .myclass {
+            height: 20px;
+            width: 30px;
+            position: relative;
+            border: 2px solid #cdcdcd;
+            border-color: rgba(0, 0, 0, 0.8);
+            background-color: #878c93;
+            color: white;
+            font-size: 14px;
+        }
+
+        .feedback_form {
+            top: 10px;
+            position: absolute;
+            left: 400px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        //this is the AJAX to POST the data on server
+        var postHttpRequest = function (url, postData, callback) {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    callback(request.responseText);
+                }
+            }
+            request.open("POST", window.location.origin + url, true);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.send(JSON.stringify(postData));
+        }
+
+        var postHttpRequest1 = function (url, postData, callback) {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    callback(request.responseText);
+                }
+            }
+            request.open("POST", window.location.origin + url, true);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.send(JSON.stringify(postData));
+        }
+
+    </script>
+</head>
+
+<body>
+<script type="text/javascript">
+    var i = 1;
+    function myFunction() {
+        var k = 0;
+        var button = document.createElement("button");
+        var button1 = document.createElement("button");
+
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "text");
+
+        var t = document.createTextNode("Counter " + i);
+        button.appendChild(t);
+        button.style.color = 'white';
+        button.style.backgroundColor = "#4CAF50";
+        button.style.padding = '15px 32px';
+        button.style.display = 'inline';
+        button.style.fontSize = '16px';
+        button.style.margin = '4px 2px';
+        button.style.cursor = 'pointer';
+        button.id = i.toString();
+
+        var t1 = document.createTextNode("Disable  " + i);
+        button1.appendChild(t1);
+        button1.style.color = 'white';
+        button1.style.backgroundColor = "#e3360f";
+        button1.style.padding = '15px 32px';
+        button1.style.display = 'inline-block';
+        button1.style.fontSize = '16px';
+        //button1.style.margin = '50px 2px';
+        button1.style.cursor = 'pointer';
+
+
+        button1.onclick = function DisableButton() {
+            //document.getElementById("button").disabled = false;
+            document.getElementById(button.id).disabled = true;
+            button.style.backgroundColor = "#dde3de";
+            button.style.color = 'black';
+
+            postHttpRequest("/setCount3", [{"data1": button.id}], function (data) {
+
+            });
+
+        }
+
+        button.onclick = function () {
+            k++;
+            x.setAttribute("value", k)
+            var d = new Date();
+            var n = d.getTime();
+            myFunction1(button.id, k, n);
+            return false;
+        };
+
+        x.style.display = 'block';
+        x.className = "myclass";
+        document.body.appendChild(button);
+        document.body.appendChild(button1);
+        document.body.appendChild(x);
+        i++;
+    }
+
+
+</script>
+<script type="text/javascript">
+    //The Data is Packed and sent to AJAX function for sending to the server
+    function myFunction1(count1, count2, count3) {
+        postHttpRequest("/setCount", [{"data1": count1, "data2": count2, "data3": count3}], function (data) {
+
+        });
+    }
+
+</script>
+
+<input type="button" class="button" value="Create Counter" onclick="myFunction()">
+
+<script>
+
+    function myFunction2() {
+        var count20 = document.getElementById("CounterNumber").value;
+
+        postHttpRequest1("/setCount1", [{"data1": count20}], function (data) {
+            var htmltags = "<table border='2' ><tr><th>Past Hour</th><th>Past 3 Hours</th><th>Past 6 Hours</th><th>Past 12 Hours</th><th>Past 24 Hours</th><th>All Time</th> </tr><tr>";
+            data = data.replace(/[ [ \]\ ]/g, "").split(',').map(Number);
+            for (var i = 0; i < data.length; i++) {
+                htmltags += "<td bgcolor='#878c93' style='color:white' >" + data[i] + "</td>";
+            }
+            htmltags += "</tr></table>";
+            document.getElementById('test').innerHTML = htmltags;
+        });
+    }
+
+    function myFunction3() {
+        var count21 = document.getElementById("NumberOfHours").value;
+        var count22 = document.getElementById("CounterNumber").value;
+
+        postHttpRequest("/setCount2", [{"data1": count21}, {"data2": count22}], function (data) {
+            var htmltags = "<table><tr>";
+            data1 = data.replace(/[ [ \]\ ]/g, "");
+            htmltags += "<td>" + data1 + "</td>";
+            htmltags += "</tr></table>";
+            document.getElementById('NOH').innerHTML = htmltags;
+        });
+    }
+
+</script>
+
+<section class="feedback_form">
+    <table>
+        <tr>
+            <td><label><b>Enter Counter Number </b></label>
+                <input type="text" id="CounterNumber" class="myclass">
+            <td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" class="button" value="Find" onclick="myFunction2()">
+                <input type="button" class="dropbtn" value="Enter the Number of hours" onclick="myFunction3()">
+                <input type="text" id="NumberOfHours" class="myclass">
+                <div id="NOH" class="myclass1"></div>
+            </td>
+        </tr>
+    </table>
+    <div id="test" class="myclass1"></div>
+</section>
+
+</body>
+</html>
+
+
