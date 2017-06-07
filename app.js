@@ -1,5 +1,4 @@
 var express = require('express');
-var http = require('http');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -8,13 +7,14 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var counter = require('./routes/counter');
 var redis1 = require('./routes/redis');
+var counter = require('./routes/counter');
+//var Query = require('./routes/Query');
+//var MongoDB = require('./routes/MongoDB1');
 
 var app = express();
 
 // view engine setup
-app.set('port', process.env.PORT || 8311);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -31,20 +31,18 @@ app.use('/users', users);
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-http.createServer(app).listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 app.post('/setCount', redis1.RedisInsert);
 app.get('/counter', counter.InsertCount);
+
+
 
 module.exports = app;
