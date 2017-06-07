@@ -1,8 +1,8 @@
 /**
  * Created by Aditya on 6/7/2017.
  */
-//var redis = require('redis');
-var client = require('redis').createClient(6379, 'r1.7m5dyg.ng.0001.use2.cache.amazonaws.com 6379', {no_ready_check: true})
+var redis = require('redis');
+//var client = require('redis').createClient(6379, 'r1.7m5dyg.ng.0001.use2.cache.amazonaws.com:6379', {no_ready_check: true})
 
 exports.RedisInsert = function (req, res) {
 
