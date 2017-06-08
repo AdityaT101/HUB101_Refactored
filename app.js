@@ -10,7 +10,7 @@ var users = require('./routes/users');
 var redis1 = require('./routes/redis');
 var counter = require('./routes/counter');
 var Query = require('./routes/Query');
-var MongoDB = require('./routes/MongoDB1');
+//var MongoDB = require('./routes/MongoDB1');
 
 
 var app = express();
@@ -46,6 +46,6 @@ app.get('/counter', counter.InsertCount);
 
 app.post('/setCount1', Query.QueryRetrieve);
 app.post('/setCount2', Query.QueryRetrieve1);
-app.post('/setCount3', MongoDB.RedisDelete);
+//app.post('/setCount3', MongoDB.RedisDelete);
 
 module.exports = app;
