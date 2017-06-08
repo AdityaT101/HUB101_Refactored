@@ -29,33 +29,39 @@ exports.QueryRetrieve = function (req, res) {
 
 
     function PastHour(err, reply) {
-        if (!err) console.log("Past 1 hour :- " + reply);
+        if (err)console.log(err);
+        //if (!err)console.log("Past 1 hour :- " + reply);
         MyVar.push(reply);
     }
 
     function Past3Hours(err, reply) {
-        if (!err) console.log("Past 3 hours :- " + reply);
+        if (err)console.log(err);
+        //if (!err) console.log("Past 3 hours :- " + reply);
         MyVar.push(reply);
 
     }
 
     function Past6Hours(err, reply) {
-        if (!err) console.log("Past 6 hours :- " + reply);
+        if (err)console.log(err);
+        // if (!err) console.log("Past 6 hours :- " + reply);
         MyVar.push(reply);
     }
 
     function Past12Hours(err, reply) {
-        if (!err) console.log("Past 12 hours :- " + reply);
+        if (err)console.log(err);
+        //    if (!err) console.log("Past 12 hours :- " + reply);
         MyVar.push(reply);
     }
 
     function Past24Hours(err, reply) {
-        if (!err) console.log("Past 24 hours :- " + reply);
+        if (err)console.log(err);
+        //if (!err) console.log("Past 24 hours :- " + reply);
         MyVar.push(reply);
     }
 
     function AllTime(err, reply) {
-        if (!err) console.log("Past All Time :- " + reply);
+        if (err)console.log(err);
+        //if (!err) console.log("Past All Time :- " + reply);
         MyVar.push(reply);
         res.send(MyVar);
     }

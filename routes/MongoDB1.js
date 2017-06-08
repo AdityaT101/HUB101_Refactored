@@ -37,7 +37,7 @@ exports.RedisDelete = function (req, res) {
 
     function MInsert(err1) {
         if (err1) console.log(err1);
-        else console.log("1 record inserted");
+      //  else console.log("1 record inserted");
     }
 
 }
