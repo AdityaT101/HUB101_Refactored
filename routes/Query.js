@@ -21,37 +21,39 @@ exports.QueryRetrieve = function (req, res) {
     var MyVar = [];
 
     client.ZCOUNT(p1, PastTime1, CurrentTime, PastHour);
-    client.ZCOUNT(p1, PastTime3, CurrentTime, Past3Hours);
-    client.ZCOUNT(p1, PastTime6, CurrentTime, Past6Hours);
-    client.ZCOUNT(p1, PastTime12, CurrentTime, Past12Hours);
-    client.ZCOUNT(p1, PastTime24, CurrentTime, Past24Hours);
-    client.ZCOUNT(p1, PastAllTime, CurrentTime, AllTime);
 
 
     function PastHour(err, reply) {
         if (!err) console.log("Past 1 hour :- " + reply);
         MyVar.push(reply);
+        if(reply)client.ZCOUNT(p1, PastTime3, CurrentTime, Past3Hours);
     }
 
     function Past3Hours(err, reply) {
         if (!err) console.log("Past 3 hours :- " + reply);
         MyVar.push(reply);
-
+        if(reply)client.ZCOUNT(p1, PastTime6, CurrentTime, Past6Hours);
     }
 
     function Past6Hours(err, reply) {
         if (!err) console.log("Past 6 hours :- " + reply);
         MyVar.push(reply);
+        if(reply) client.ZCOUNT(p1, PastTime12, CurrentTime, Past12Hours);
+
     }
 
     function Past12Hours(err, reply) {
         if (!err) console.log("Past 12 hours :- " + reply);
         MyVar.push(reply);
+        if(reply)client.ZCOUNT(p1, PastTime24, CurrentTime, Past24Hours);
+
     }
 
     function Past24Hours(err, reply) {
         if (!err) console.log("Past 24 hours :- " + reply);
         MyVar.push(reply);
+        if(reply)client.ZCOUNT(p1, PastAllTime, CurrentTime, AllTime);
+
     }
 
     function AllTime(err, reply) {
