@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-//var redis1 = require('./routes/redis');
+var redis1 = require('./routes/redis');
 var counter = require('./routes/counter');
 //var Query = require('./routes/Query');
 //var MongoDB = require('./routes/MongoDB1');
