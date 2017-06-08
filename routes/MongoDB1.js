@@ -5,8 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 //var url = "mongodb://localhost:27017/textmonkey";
 var url = "mongodb://AdityaT101:kale123@ds053166.mlab.com:53166/textmonkey";
 
-var redis = require('redis');
-var client = redis.createClient();
+var client = require('redis').createClient(6379, 'r1.7m5dyg.ng.0001.use2.cache.amazonaws.com', {no_ready_check: true})
 
 exports.RedisDelete = function (req, res)
 {
