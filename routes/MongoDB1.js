@@ -12,9 +12,11 @@ exports.RedisDelete = function (req, res)
 {
     var p1 = req.body[0].data1;
 
-    client.ZRANGE(p1, 0, -1,Zrange)
+   // client.ZRANGE(p1, 0, -1,Zrange)
 
-    function Zrange(err, reply)
+    client.del(p1);res.status(200).send("done")
+
+   /* function Zrange(err, reply)
     {
         if (!err)
         {
@@ -52,5 +54,5 @@ exports.RedisDelete = function (req, res)
         if (err1) console.log(err1);
         else console.log("1 record inserted");
     }
-
+*/
 }
