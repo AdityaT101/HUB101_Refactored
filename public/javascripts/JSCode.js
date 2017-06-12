@@ -3,7 +3,7 @@
  */
 
 //this is the AJAX containing HttpRequest to POST the data on server
-var postHttpRequest = function (url, postData, callback) {
+var PostHttpRequest = function (url, PostData, callback) {
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -12,7 +12,7 @@ var postHttpRequest = function (url, postData, callback) {
     }
     request.open("POST", window.location.origin + url, true);
     request.setRequestHeader("Content-Type", "application/json");
-    request.send(JSON.stringify(postData));
+    request.send(JSON.stringify(PostData));
 }
 
 // Function to create Counter Dynamically, along with the disable Counter Button
@@ -52,7 +52,7 @@ function CreateCounter() {
         button.style.color = 'black';
 
         //POST Request to disable the related button
-        postHttpRequest("/DisableButton", [{"data1": button.id}], function (data) {
+        PostHttpRequest("/DisableButton", [{"data1": button.id}], function (data) {
         });
 
     }
@@ -77,7 +77,7 @@ function CreateCounter() {
 
 //The Data is Packed and sent to AJAX function for sending to the server
 function SendDataOfCounter(CounterNumber, ClickNumber, TimeStamp) {
-    postHttpRequest("/IncrementCounter", [{
+    PostHttpRequest("/IncrementCounter", [{
         "data1": CounterNumber,
         "data2": ClickNumber,
         "data3": TimeStamp
@@ -90,7 +90,7 @@ function SendDataOfCounter(CounterNumber, ClickNumber, TimeStamp) {
 function FindResultsFixed() {
     var CounterNumber = document.getElementById("CounterNumber").value;
 
-    postHttpRequest("/FixedRequest", [{"data1": CounterNumber}], function (data) {
+    PostHttpRequest("/FixedRequest", [{"data1": CounterNumber}], function (data) {
         if (data) {
             var HtmlTags = "<table border='2' ><tr><th>Past Hour</th><th>Past 3 Hours</th><th>Past 6 Hours</th><th>Past 12 Hours</th><th>Past 24 Hours</th><th>All Time</th> </tr><tr>";
             data = data.replace(/[ [ \]\ ]/g, "").split(',').map(Number);
@@ -108,7 +108,7 @@ function FindResultsDynamic() {
     var NumberOfHours = document.getElementById("NumberOfHours").value;
     var CounterNumber = document.getElementById("CounterNumber").value;
 
-    postHttpRequest("/DynamicRequest", [{"data1": NumberOfHours}, {"data2": CounterNumber}], function (data) {
+    PostHttpRequest("/DynamicRequest", [{"data1": NumberOfHours}, {"data2": CounterNumber}], function (data) {
         if (data) {
             var HtmlTags = "<table><tr>";
             data1 = data.replace(/[ [ \]\ ]/g, "");
