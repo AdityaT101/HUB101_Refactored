@@ -7,11 +7,10 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var redis1 = require('./routes/redis');
+var redis = require('./routes/redis');
 var counter = require('./routes/counter');
 var Query = require('./routes/Query');
-var MongoDB = require('./routes/MongoDB1');
-
+var MongoDB = require('./routes/MongoDB');
 
 var app = express();
 
@@ -41,11 +40,11 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-app.post('/setCount', redis1.RedisInsert);
+app.post('/IncrementCounter', redis.RedisInsert);
 app.get('/counter', counter.InsertCount);
 
-app.post('/setCount1', Query.QueryRetrieve);
-app.post('/setCount2', Query.QueryRetrieve1);
-app.post('/setCount3', MongoDB.RedisDelete);
+app.post('/FixedRequest', Query.QueryRetrieveFixed);
+app.post('/DynamicRequest', Query.QueryRetrieveDynamic);
+app.post('/DisableButton', MongoDB.RedisDelete);
 
 module.exports = app;
